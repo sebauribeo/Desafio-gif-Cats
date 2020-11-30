@@ -8,10 +8,11 @@
         <span>S</span>
       </h1>
     </header>
+
     <main class="main text-center">
       <form @submit.prevent="buscar">
         <div class="main__div">
-          <span :class="''">Titulo: </span>
+          <span>Titulo: </span>
           <input class="form-control" type="text" placeholder="">
         </div>
         <div class="main__div">
@@ -42,10 +43,11 @@
           <button class="btn btn-dark p-3 m-2" type="submit">Obtener Michi</button>
         </div>
       </form>
-      <div>
-        <img :src="getInfo" alt="">
-      </div>
     </main>
+
+    <section class="image">
+      <img src="" alt="">
+    </section>
 
   </div>
 </template>
@@ -55,43 +57,14 @@ export default {
   name: 'Gatos',
   data() {
     return {
-      michi: [],
+      michi: {},
     }
   },
-  // mounted() {
-  //   fetch("https://cataas.com/cat/gif/says/holi?filter=sepia&color=orange&size=40&type=or")
-  //   .then((resp) => resp.json())
-  //   .then((result) =>{
-  //     this.michi = result;
-  //   })
-  // },
-    methods: {
-    buscar(){
-      fetch("https://cataas.com/cat/gif/says/holi?filter=sepia&color=orange&size=40&type=or")
-      .then((resp) => resp.json())
-      .then((result) =>{
-        this.michi = result;
-      })
-      // .catch((error) => {
-      //   console.log(error)
-      //   alert("El nombre o número no es correcto");
-      // })
-    }
-  },
-  computed: {
-    getInfo() {
-      if (this.michi) {
-        return this.michi;
-      }else {
-        return '';
-      }
-    }
-  },
+  
   
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .header {
   width: 100%;
@@ -147,6 +120,9 @@ export default {
   margin-right: 20px;
 }
 .section__div {
+  height: 500px;
+}
+.image {
   height: 500px;
 }
 </style>
