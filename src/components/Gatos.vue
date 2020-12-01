@@ -1,53 +1,67 @@
 <template>
   <div>
-    <header class="header">
-      <h1>
-        <span>C</span>
-        <span>A</span>
-        <span>T</span>
-        <span>S</span>
-      </h1>
-    </header>
+    <div>
 
-    <main class="main text-center">
-      <form @submit.prevent="buscar">
+      <div class="header">
+        <h1>
+          <span>C</span>
+          <span>A</span>
+          <span>T</span>
+          <span>S</span>
+        </h1>
+      </div>
+
+      <main class="main">
         <div class="main__div">
-          <span>Titulo: </span>
-          <input class="form-control" type="text" placeholder="">
+
+        <div>
+          <span>Título:
+            <input type="text" v-model="title">
+          </span>
         </div>
-        <div class="main__div">
+
+        <div>
+        <span>Filtro:</span>
+          <select name="" v-model="filter">
+            <option value="blur">blur</option>
+            <option value="mono">mono</option>
+            <option value="sepia">sepia</option>
+            <option value="negative">negative</option>
+            <option value="paint">paint</option>
+            <option value="pixel">pixel</option>
+          </select>
+        </div>
+
+        <div>
           <span>Color:</span>
-          <select class="form-control">
-            <option>Azul</option>
-            <option>Verde</option>
-            <option>Rojo</option>
-            <option>Negro</option>
+          <select name="" v-model="color.background">
+            <option value="green">Verde</option>
+            <option value="red">rojo</option>
+            <option value="black">negro</option>
+            <option value="white">blanco</option>
+            <option value="blue">azul</option>
+            <option value="yellow">amarillo</option>
           </select>
+          <button :style="color"></button>
         </div>
-        <div class="main__div">
-          <span>Filtro:</span>
-          <select class="form-control">
-            <option>Blur</option>
-            <option>Mono</option>
-            <option>Sepia</option>
-            <option>Negavite</option>
-            <option>Paint</option>
-            <option>Picel</option>
-          </select>
+
+        <div>
+          <span>Tamaño: 
+            <input type="text" v-model="size"/>
+          </span>
         </div>
-        <div class="main__div">
-          <span>Tamaño:</span>
-          <input class="form-control" type="text" placeholder="">
+        </div>
+      </main>
+
+      </div>
+      <section>
+        <div class="text-center">
+          <button @click="buscar" class="btn btn-danger p-2 m-3">Obtener Michi</button>
         </div>
         <div>
-          <button class="btn btn-dark p-3 m-2" type="submit">Obtener Michi</button>
+          <img class="image" :src="url" alt=""/>
         </div>
-      </form>
-    </main>
-
-    <section class="image">
-      <img src="" alt="">
-    </section>
+      </section>
 
   </div>
 </template>
@@ -57,12 +71,34 @@ export default {
   name: 'Gatos',
   data() {
     return {
-      michi: {},
-    }
+      title: "",
+      filter: "",
+      size: "",
+      url: "",
+      color: {
+        background: "",
+        padding: "20px 20px",
+        borderRadius: "50%",
+        margin: "10px",
+        border: "3px solid black",
+      },
+    };
   },
-  
-  
-}
+
+  methods: {
+    buscar() {
+      let title = this.title;
+      let filter = this.filter;
+      let colors = this.getcolor;
+      let size = this.size;
+      this.url = `https://cataas.com/cat/gif/says/${title}?filter=${filter}&color=${colors}&size=${size}`;
+    },
+    getcolor() {
+      return this.color.background;
+    },
+  },
+};
+
 </script>
 
 <style scoped>
@@ -108,21 +144,29 @@ export default {
 }
 .main {
   width: 100%;
-  height: auto;
   background: rgb(251, 255, 0);
   border: 3px solid rgb(0, 0, 0);
+  display: flex;
+  align-content: center;
+  justify-content: center;
 }
 .main__div {
-  display: flex;
-  padding: 20px;
+  width: 100%;
+  margin: 20px;
+  display: inline-block;
+  align-content: center;
+  justify-content: center;
 }
-.main__div span {
-  margin-right: 20px;
-}
-.section__div {
-  height: 500px;
-}
+
+
 .image {
   height: 500px;
+  padding: 50px;
 }
+
+select, input {
+  width: 200px;
+  margin: 20px ;
+}
+
 </style>

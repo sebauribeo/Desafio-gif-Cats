@@ -9,9 +9,21 @@ import Gatos from './components/Gatos.vue'
 
 export default {
   name: 'App',
+  data(){
+    return {
+      michi: [],
+    }
+  },
   components: {
     Gatos
-  }
+  },
+    mounted() {
+      fetch('https://cataas.com/cat/gif')
+      .then((resp) => resp.json())
+      .then((dato) => {
+        this.michi = dato;
+      })    
+    },
 }
 </script>
 
