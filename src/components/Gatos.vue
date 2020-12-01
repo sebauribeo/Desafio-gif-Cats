@@ -20,48 +20,49 @@
           </span>
         </div>
 
-        <div>
-        <span>Filtro:</span>
-          <select name="" v-model="filter">
-            <option value="blur">blur</option>
-            <option value="mono">mono</option>
-            <option value="sepia">sepia</option>
-            <option value="negative">negative</option>
-            <option value="paint">paint</option>
-            <option value="pixel">pixel</option>
-          </select>
-        </div>
+        <form @submit.prevent="buscar">
+          <div>
+          <span>Filtro:</span>
+            <select name="" v-model="filter">
+              <option value="blur">Blur</option>
+              <option value="mono">Mono</option>
+              <option value="sepia">Sepia</option>
+              <option value="negative">Negative</option>
+              <option value="paint">Paint</option>
+              <option value="pixel">Pixel</option>
+            </select>
+          </div>
+          <div class="colores">
+            <span>Color:</span>
+            <select name="" v-model="colores">
+              <option value="red">Rojo</option>
+              <option value="white">Blanco</option>
+              <option value="yellow">Amarillo</option>
+              <option value="green">Verde</option>
+              <option value="black">Negro</option>
+              <option value="blue">Azul</option>
+            </select>
+            <span class="circulo" :style="{backgroundColor : colores}"></span>
+          </div>
+          <div>
+            <span>Tamaño: 
+              <input type="text" v-model="size"/>
+            </span>
+          </div>
+          <div class="text-center">
+            <button type="submit" class="btn btn-danger p-2 m-3">Obtener Michi</button>
+          </div>
+        </form>
 
-        <div>
-          <span>Color:</span>
-          <select name="" v-model="color.background">
-            <option value="green">Verde</option>
-            <option value="red">rojo</option>
-            <option value="black">negro</option>
-            <option value="white">blanco</option>
-            <option value="blue">azul</option>
-            <option value="yellow">amarillo</option>
-          </select>
-          <button :style="color"></button>
-        </div>
-
-        <div>
-          <span>Tamaño: 
-            <input type="text" v-model="size"/>
-          </span>
-        </div>
         </div>
       </main>
-
+    </div>
+      
+    <section>
+      <div>
+        <img class="image" :src="url" alt=""/>
       </div>
-      <section>
-        <div class="text-center">
-          <button @click="buscar" class="btn btn-danger p-2 m-3">Obtener Michi</button>
-        </div>
-        <div>
-          <img class="image" :src="url" alt=""/>
-        </div>
-      </section>
+    </section>
 
   </div>
 </template>
@@ -75,13 +76,7 @@ export default {
       filter: "",
       size: "",
       url: "",
-      color: {
-        background: "",
-        padding: "20px 20px",
-        borderRadius: "50%",
-        margin: "10px",
-        border: "3px solid black",
-      },
+      colores: "",
     };
   },
 
@@ -89,13 +84,11 @@ export default {
     buscar() {
       let title = this.title;
       let filter = this.filter;
-      let colors = this.getcolor;
+      let colores = this.colores;
       let size = this.size;
-      this.url = `https://cataas.com/cat/gif/says/${title}?filter=${filter}&color=${colors}&size=${size}`;
+      this.url = `https://cataas.com/cat/gif/says/${title}?filter=${filter}&color=${colores}&size=${size}`;
     },
-    getcolor() {
-      return this.color.background;
-    },
+    
   },
 };
 
@@ -110,7 +103,13 @@ export default {
   justify-content: center;
 }
 .header h1 {
-  margin-top: 20px;
+  width: 200px;
+  margin: 20px;
+  background: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50px;
 }
 .header h1 span:nth-child(1){
     animation-delay: 0s;
@@ -144,7 +143,7 @@ export default {
 }
 .main {
   width: 100%;
-  background: rgb(251, 255, 0);
+  background: rgb(75, 207, 207);
   border: 3px solid rgb(0, 0, 0);
   display: flex;
   align-content: center;
@@ -160,13 +159,26 @@ export default {
 
 
 .image {
-  height: 500px;
+  width: 100%;
+  height: auto;
   padding: 50px;
 }
 
 select, input {
   width: 200px;
   margin: 20px ;
+  border-radius: 10px;
+  border: 3px solid black;
 }
-
+.colores {
+  display: flex;
+  align-items: center;
+}
+ .circulo{
+   width: 50px;
+   height: 50px;
+   border-radius: 50%;
+   border: 3px solid black;
+   background: white;
+ }
 </style>
